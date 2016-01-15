@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700|Merriweather:400,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssnormalize/cssnormalize-min.css">
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/dc/1.7.5/dc.min.css">
+    <link rel="stylesheet" href="/stylesheets/main.css">
+  </head>
+  <body>
+    <div id="wrapper">
+
+      <h1>Estimación de inmigrantes que llegarán a España en 2015</h1>
+
+      <div class="pure-g">
+        <div class="pure-u-1-3">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Total inmigrantes
+            </div>
+            <div class="chart-stage">
+              <div id="total-inmigrants"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pure-u-1-3">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Aceptados
+            </div>
+            <div class="chart-stage">
+              <div id="accepted"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pure-u-1-3">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Rejected
+            </div>
+            <div class="chart-stage">
+              <div id="rejected"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pure-g">
+        <div class="pure-u-1-3">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Sexo
+              <a class="reset" href="javascript:reset_filters();" style="display: true;">reset all</a>
+            </div>
+            <div class="chart-stage">
+              <div id="accepted-by-sex"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pure-u-1-3">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Edad
+              <a class="reset" href="javascript:reset_filters();" style="display: true;">reset all</a>
+            </div>
+            <div class="chart-stage">
+              <div id="accepted-by-age"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pure-u-1-3">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              País
+              <a class="reset" href="javascript:reset_filters();" style="display: true;">reset all</a>
+            </div>
+            <div class="chart-stage">
+              <div id="accepted-by-country"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pure-g">
+        <div class="pure-u-1-3">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Sexo
+              <a class="reset" href="javascript:reset_filters();" style="display: true;">reset all</a>
+            </div>
+            <div class="chart-stage">
+              <div id="rejected-by-sex"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pure-u-1-3">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Edad
+              <a class="reset" href="javascript:reset_filters();" style="display: true;">reset all</a>
+            </div>
+            <div class="chart-stage">
+              <div id="rejected-by-age"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pure-u-1-3">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              País
+              <a class="reset" href="javascript:reset_filters();" style="display: true;">reset all</a>
+            </div>
+            <div class="chart-stage">
+              <div id="rejected-by-country"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js"></script>
+    <script src="http://dc-js.github.io/dc.js/js/dc.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.min.js"></script>
+    <script src="/javascripts/main.js"></script>
+  </body>
+</html>

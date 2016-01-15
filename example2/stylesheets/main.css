@@ -1,0 +1,59 @@
+html * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,body {
+  font-size: 100%;
+  font-family: "Open Sans", helvetica, arial, sans-serif;
+  color: #404040;
+  background-color: white;
+}
+
+#wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.chart-wrapper {
+  border:none;
+  padding: 1.2em;
+  font-family: "Merriweather", georgia, serif;
+}
+
+.chart-title {
+  text-align: center;
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 200;
+  padding: 7px 10px 4px;
+
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.chart-stage {
+  overflow: hidden;
+  padding: 5px 10px;
+  position: relative;
+}
+
+svg{
+  display:block;
+  margin:auto;
+}
+
+div.dc-chart {
+  float: none;
+  text-align: center;
+}
+
+.number-display{
+  font-size: 60px;
+}
+
+.dc-chart g.row text {
+  fill: #666;
+}
