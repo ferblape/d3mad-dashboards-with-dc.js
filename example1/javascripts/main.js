@@ -16,80 +16,122 @@ accounting.settings = {
 }
 
 queue()
-  .defer(d3.csv, "data/predict2015_short_esp.csv")
+  .defer(d3.csv, "https://raw.githubusercontent.com/ferblape/d3mad-dashboards-with-dc.js/gh-pages/datasets/presupuestos-municipales.csv")
   .await(makeGraphs);
 
-var totalDisplay, totalByAgeChart, totalBySexChart, totalByCountryChart;
+var meanBudgetDisplay, meanBudgetPerInhabitantDisplay, yearsChart, autonomousRegionsChart,
+    evolutionChart, mapChart;
 
 function makeGraphs(error,data){
   if(error)
     throw(error);
 
-  data = data.filter(function(d){
-    return d.destiny === 'España';
+  data.forEach(function(d){
+    d.budget = +d.budget;
+    d.population = +d.population;
+    d.year = +d.year;
+    d.date = new Date(d.year, 0, 1);
+    d.budgetPerInhabitant = (d.budget / d.population);
   });
 
-  data.forEach(function(d) {
-    d.accepted_total = parseInt(d.accepted_total);
-    d.rejected_total = parseInt(d.rejected_total);
-    d.total = parseInt(d.total);
-  });
+  var budgets = crossfilter(data);
 
-  var ndx = crossfilter(data);
+  var addElement = function(p, v){
+    p.count++;
+    p.totalBudget += v.budget;
+    p.totalPopulation += v.population;
+    p.totalBudgetPerInhabitant += v.budgetPerInhabitant;
 
-  //var acceptedTotalDim = ndx.dimension(function(d) {return d.accepted_total;});
-  //var rejectedTotalDim = ndx.dimension(function(d) {return d.rejected_total;});
+    p.meanBudget = p.totalBudget / p.count;
+    p.meanBudgetPerInhabitant = p.totalBudgetPerInhabitant / p.count;
 
-  var ageDim = ndx.dimension(function(d) {return d.age;});
-  var sexDim = ndx.dimension(function(d) {return d.sex;});
-  var originDim = ndx.dimension(function(d) {return d.origin;});
+    return p;
+  }
 
-  var totalGroup = ndx.groupAll().reduceSum(function(d){ return d.total; });
-  var totalPerAgeGroup = ageDim.group().reduceSum(function(d){ return d.total; });
-  var totalPerSexGroup = sexDim.group().reduceSum(function(d){ return d.total; });
-  var totalPerOriginGroup = originDim.group().reduceSum(function(d){ return d.total; });
+  var removeElement = function(p, v){
+    p.count--;
+    p.totalBudget -= v.budget;
+    p.totalPopulation -= v.population;
+    p.totalBudgetPerInhabitant -= v.budgetPerInhabitant;
 
-  totalDisplay = dc.numberDisplay("#total-inmigrants");
-  totalBySexChart = dc.pieChart("#total-by-sex");
-  totalByAgeChart = dc.rowChart("#total-by-age");
-  totalByCountryChart = dc.rowChart("#total-by-country");
+    p.meanBudget = p.totalBudget / p.count;
+    p.meanBudgetPerInhabitant = p.totalBudgetPerInhabitant / p.count;
 
-  totalDisplay
-    .group(totalGroup)
-    .valueAccessor(function (p){ return p;})
-    .formatNumber(function(d){ return accounting.formatNumber(d, {precision: 0})});
+    return p;
+  }
 
-  totalBySexChart
-    .dimension(sexDim)
-    .group(totalPerSexGroup)
-    .label(function(d) {
-      var total = d3.sum(totalPerSexGroup.all().map(function(d){ return d.value; }));
-      var percentage = (d.value*100 / total);
-      return d.key + " " + accounting.formatNumber(percentage, {precision: 1}) + '%';
+  var initialize = function(){
+    return {
+      count: 0,
+      totalBudget: 0,
+      totalPopulation: 0,
+      totalBudgetPerInhabitant: 0,
+      meanBudget: 0,
+      meanBudgetPerInhabitant: 0
+    };
+  }
+
+  var meanBudgetGroup = budgets.groupAll().reduce(addElement, removeElement, initialize);
+  var meanBudgetPerInhabitantGroup = budgets.groupAll().reduce(addElement, removeElement, initialize);
+
+  var yearsDim = budgets.dimension(function(d){ return d.date; });
+  var budgetPerYearGroup = yearsDim.group().reduceSum(function(d){ return d.budget; });
+  var meanBudgetPerInhabitantPerYearGroup = yearsDim.group().reduce(addElement, removeElement, initialize);
+
+  var autonomousRegionsDim = budgets.dimension(function(d){ return d.autonomous_region; });
+  var budgetPerAutonomousRegionGroup = autonomousRegionsDim.group().reduceSum(function(d){ return d.budget; });
+
+  meanBudgetDisplay = dc.numberDisplay("#mean-budget");
+  meanBudgetPerInhabitantDisplay = dc.numberDisplay("#mean-budget-per-inhabitant");
+  yearsChart = dc.pieChart("#years");
+  autonomousRegionsChart = dc.rowChart("#autonomous-regions");
+  evolutionChart = dc.lineChart("#evolution");
+  //mapChart = dc.geoChoroplethChart("#map");
+
+  meanBudgetDisplay
+    .group(meanBudgetGroup)
+    .valueAccessor(function (p){ return p.meanBudget;})
+    .formatNumber(function(d){ return accounting.formatNumber(d / 1000000, {precision: 0}) + 'M€';});
+
+  meanBudgetPerInhabitantDisplay
+    .group(meanBudgetPerInhabitantGroup)
+    .valueAccessor(function (p){ return p.meanBudgetPerInhabitant;})
+    .formatNumber(function(d){ return accounting.formatNumber(d, {precision: 2}) + '€';});
+
+  yearsChart
+    .dimension(yearsDim)
+    .title(function(d){
+      return d.key;
     })
-    .title(function (d) {
-      return d.value;
-    });
+    .label(function(d){
+      return d.key.getFullYear();
+    })
+    .group(budgetPerYearGroup);
 
-  totalByAgeChart
-    .dimension(ageDim)
-    .group(totalPerAgeGroup)
-    .ordinalColors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb'])
-    .elasticX(true)
-    .xAxis().ticks(4);
-
-  totalByCountryChart
-    .dimension(originDim)
-    .group(totalPerOriginGroup)
+  autonomousRegionsChart
+    .dimension(autonomousRegionsDim)
+    .group(budgetPerAutonomousRegionGroup)
     .title(function(d) {
       return d.key + " " + accounting.formatNumber(d.value);
     })
-    .height(400)
-    .data(function(group){
-      return group.top(15);
-    })
     .elasticX(true)
-    .xAxis().ticks(4);
+    .height(400)
+    .xAxis().ticks(2);
+
+  evolutionChart
+    .dimension(yearsDim)
+    .group(meanBudgetPerInhabitantPerYearGroup)
+    .renderArea(true)
+    .margins({top: 30, right: 50, bottom: 25, left: 90})
+    .x(d3.time.scale().domain([new Date(2010, 0, 1), new Date(2015, 0, 1)]))
+    .valueAccessor(function(d) {
+      return d.value.meanBudgetPerInhabitant;
+    })
+    .title(function(d) {
+      return d.key + " " + accounting.formatNumber(d.value);
+    })
+    .height(250)
+    .elasticY(true);
 
   dc.renderAll();
 }

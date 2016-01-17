@@ -113,10 +113,109 @@
           - Example: budget per year, mean budget per province
         </section>
 
-        <section>
+        <section data-markdown>
           ## Example
 
-          <div id="example1"></div>
+          Declare some dimensions: budget, population, budget per inhabitant
+        </section>
+
+        <section>
+          <h2>Load the CSV dataset</h2>
+
+          <pre><code class="hljs" data-trim>
+d3.csv('/datasets/presupuestos-municipales.csv', function(error, data){
+  // Format the data
+  data.forEach(function(d){
+    d.budget = +d.budget;
+    d.population = +d.population;
+    d.year = +d.year;
+    d.budgetPerInhabitant = (d.budget / d.population);
+  });
+
+  // Construct a new crossfilter
+  var budgets = crossfilter(data);
+
+  // Insert your code here
+  // ...
+});
+          </code></pre>
+
+          <p><code>data[0]</code></p>
+          <pre><code class="hljs" data-trim>
+{year: 2010, city: "Albacete",
+budget: 173159214.03, population: 171390,
+province: "Albacete",...}
+</code></pre>
+        </section>
+
+        <section>
+          <h2>Declaring our dimensions</h2>
+
+          <pre><code class="hljs" data-trim>
+var budgetDim = budgets.dimension(function(d){ return d.budget; });
+
+var populationDim = budgets.dimension(function(d){
+  return d.population;
+});
+
+var budgetPerInhabitantDim = budgets.dimension(function(d){
+  return d.budgetPerInhabitant;
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Using a dimension</h2>
+
+          <pre><code class="hljs" data-trim>
+console.log(budgetDim.top(3));
+
+// [Object, Object, Object]
+
+// First object is:
+//   autonomous_region: "Comunidad de Madrid"
+//   budget: 5279623775
+//   budgetPerInhabitant: 1617.017558448018
+//   city: "Madrid"
+//   population: 3265038
+//   province: "Madrid"
+//   year: 2010
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Using a dimension</h2>
+          <pre><code class="hljs" data-trim>
+console.log(budgetPerInhabitantDim.top(3));
+
+// [Object, Object, Object]
+
+// First object is:
+//   autonomous_region: "Andalucía"
+//   budget: 256383574.78000003
+//   budgetPerInhabitant: 2195.421984569408
+//   city: "Jaén"
+//   population: 116781
+//   province: "Jaén"
+//   year: 2011
+          </code></pre>
+        </section>
+
+        <section data-markdown>
+          ## Dimensions
+
+          - Are declared with an accessor function
+          - They create an internal collection of elements sorted by the attribute returned in the function
+        </section>
+
+        <section data-markdown>
+          ## Groups
+
+          - What if we want to know the municipality with more budget per inhabitant in 2013?
+          - Groups are intended to filter over the dimensions
+          - What are the filtering columns in our dataset?
+
+          ![](images/dataset1.png)
         </section>
 
         <section>
@@ -158,16 +257,6 @@
       });
     </script>
 
-    <script>
-      // Examples
-      var budgets;
-      d3.csv('https://raw.githubusercontent.com/ferblape/d3mad-dashboards-with-dc.js/gh-pages/datasets/presupuestos-municipales.csv', function(error, data){
-        budgets = crossfilter(data);
-
-        d3.select("#example1").append("p").html(data[0].year);
-      });
-    </script>
-
-
+    <script src="js/examples.js"></script>
   </body>
 </html>
