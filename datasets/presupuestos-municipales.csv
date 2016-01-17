@@ -1,0 +1,288 @@
+year,city,budget,population,province,autonomous_region
+2010,Albacete,173159214.03,171390,Albacete,Castilla-La Mancha
+2010,Alicante/Alacant,291302104.18,334329,Alicante/Alacant,Comunidad Valenciana
+2010,Almería,231991331.66,190349,Almería,Andalucía
+2010,Ávila,65024099.56,59008,Ávila,Castilla y León
+2010,Badajoz,111495580.64,151565,Badajoz,Extremadura
+2010,Barcelona,2737113621.8799996,1615448,Barcelona,Cataluña
+2010,Bilbao,526838691.0,352700,Bizkaia,País Vasco
+2010,Burgos,245610132.32,179251,Burgos,Castilla y León
+2010,Cáceres,90176871.37,95026,Cáceres,Extremadura
+2010,Cádiz,211017696.41,124892,Cádiz,Andalucía
+2010,Castellón de la Plana/Castelló de la Plana,191534295.31,180114,Castellón/Castelló,Comunidad Valenciana
+2010,Ciudad Real,85881732.0,74798,Ciudad Real,Castilla-La Mancha
+2010,Córdoba,353856259.57,328659,Córdoba,Andalucía
+2010,"Coruña, A",215660200.00000003,246028,"Coruña, A",Galicia
+2010,Cuenca,63830827.17999999,56703,Cuenca,Castilla-La Mancha
+2010,Donostia/San Sebastián,336030698.16,186185,Gipuzkoa,País Vasco
+2010,Girona,99378055.00000001,96722,Girona,Cataluña
+2010,Granada,317293456.85,240099,Granada,Andalucía
+2010,Guadalajara,76739315.03,84453,Guadalajara,Castilla-La Mancha
+2010,Huelva,188269423.08,148918,Huelva,Andalucía
+2010,Huesca,53992357.06999999,52443,Huesca,Aragón
+2010,Jaén,245011585.31,116781,Jaén,Andalucía
+2010,León,178305280.98,132744,León,Castilla y León
+2010,Lleida,189376701.92000002,138416,Lleida,Cataluña
+2010,Logroño,168326000.0,152641,"Rioja, La",La Rioja
+2010,Lugo,92348387.78999999,98007,Lugo,Galicia
+2010,Madrid,5279623775.0,3265038,Madrid,Comunidad de Madrid
+2010,Málaga,739732663.02,568030,Málaga,Andalucía
+2010,Murcia,480144937.0,442203,Murcia,Región de Murcia
+2010,Ourense,111721476.99999999,108002,Ourense,Galicia
+2010,Oviedo,212438000.0,225391,Asturias,Principado de Asturias
+2010,Palencia,96820159.94999999,81552,Palencia,Castilla y León
+2010,Palma de Mallorca,473249275.66,405318,"Balears, Illes",Baleares
+2010,"Palmas de Gran Canaria, Las",312037707.49,383343,"Palmas, Las",Canarias
+2010,Pamplona/Iruña,307295546.0,197932,Navarra,Comunidad Foral de Navarra
+2010,Pontevedra,66219600.0,82400,Pontevedra,Galicia
+2010,Salamanca,171904190.13,153472,Salamanca,Castilla y León
+2010,Santa Cruz de Tenerife,209448910.12,222271,Santa Cruz de Tenerife,Canarias
+2010,Santander,202141424.92,179921,Cantabria,Cantabria
+2010,Segovia,86792821.0,55220,Segovia,Castilla y León
+2010,Sevilla,928913127.6500001,703021,Sevilla,Andalucía
+2010,Soria,40553500.0,39987,Soria,Castilla y León
+2010,Tarragona,187660471.30999997,134085,Tarragona,Cataluña
+2010,Teruel,52427796.86000001,35288,Teruel,Aragón
+2010,Toledo,93223268.0,83108,Toledo,Castilla-La Mancha
+2010,Valencia,817645749.7,798033,Valencia/València,Comunidad Valenciana
+2010,Valladolid,327898947.0,313437,Valladolid,Castilla y León
+2010,Vitoria-Gasteiz,396461335.67,239562,Araba/Álava,País Vasco
+2010,Zamora,64691622.260000005,65525,Zamora,Castilla y León
+2010,Zaragoza,755180331.0,674725,Zaragoza,Aragón
+2011,Albacete,161495911.01999998,171390,Albacete,Castilla-La Mancha
+2011,Alicante/Alacant,255508866.82999998,334329,Alicante/Alacant,Comunidad Valenciana
+2011,Almería,196308210.15000004,190349,Almería,Andalucía
+2011,Ávila,58990567.71,59008,Ávila,Castilla y León
+2011,Badajoz,109109914.59000002,151565,Badajoz,Extremadura
+2011,Barcelona,2468578716.43,1615448,Barcelona,Cataluña
+2011,Bilbao,530462400.0,352700,Bizkaia,País Vasco
+2011,Burgos,204860691.0,179251,Burgos,Castilla y León
+2011,Cáceres,90176871.37,95026,Cáceres,Extremadura
+2011,Cádiz,189943211.39,124892,Cádiz,Andalucía
+2011,Castellón de la Plana/Castelló de la Plana,172767699.48000002,180114,Castellón/Castelló,Comunidad Valenciana
+2011,Ciudad Real,85862124.99999999,74798,Ciudad Real,Castilla-La Mancha
+2011,Córdoba,298252358.96,328659,Córdoba,Andalucía
+2011,"Coruña, A",261942199.99999997,246028,"Coruña, A",Galicia
+2011,Cuenca,62442444.18,56703,Cuenca,Castilla-La Mancha
+2011,Donostia/San Sebastián,337963201.07,186185,Gipuzkoa,País Vasco
+2011,Girona,97401760.0,96722,Girona,Cataluña
+2011,Granada,313778138.15,240099,Granada,Andalucía
+2011,Guadalajara,77168023.02000001,84453,Guadalajara,Castilla-La Mancha
+2011,Huelva,182981831.79,148918,Huelva,Andalucía
+2011,Huesca,55239343.05,52443,Huesca,Aragón
+2011,Jaén,256383574.78000003,116781,Jaén,Andalucía
+2011,León,151496481.92,132744,León,Castilla y León
+2011,Lleida,179624611.18,138416,Lleida,Cataluña
+2011,Logroño,152090000.0,152641,"Rioja, La",La Rioja
+2011,Lugo,90286845.43,98007,Lugo,Galicia
+2011,Madrid,4896370937.0,3265038,Madrid,Comunidad de Madrid
+2011,Málaga,825006770.87,568030,Málaga,Andalucía
+2011,Murcia,436781215.0,442203,Murcia,Región de Murcia
+2011,Ourense,108590811.0,108002,Ourense,Galicia
+2011,Oviedo,195005607.64000002,225391,Asturias,Principado de Asturias
+2011,Palencia,93427264.75,81552,Palencia,Castilla y León
+2011,Palma de Mallorca,392814385.61,405318,"Balears, Illes",Baleares
+2011,"Palmas de Gran Canaria, Las",298936358.69000006,383343,"Palmas, Las",Canarias
+2011,Pamplona/Iruña,285752146.0,197932,Navarra,Comunidad Foral de Navarra
+2011,Pontevedra,60716787.86,82400,Pontevedra,Galicia
+2011,Salamanca,141885842.91,153472,Salamanca,Castilla y León
+2011,Santa Cruz de Tenerife,202876570.99999997,222271,Santa Cruz de Tenerife,Canarias
+2011,Santander,196615414.67,179921,Cantabria,Cantabria
+2011,Segovia,67600435.0,55220,Segovia,Castilla y León
+2011,Sevilla,829049096.75,703021,Sevilla,Andalucía
+2011,Soria,55095000.0,39987,Soria,Castilla y León
+2011,Tarragona,147669030.37000003,134085,Tarragona,Cataluña
+2011,Teruel,40325446.14999999,35288,Teruel,Aragón
+2011,Toledo,100101031.33000001,83108,Toledo,Castilla-La Mancha
+2011,Valencia,738842575.41,798033,Valencia/València,Comunidad Valenciana
+2011,Valladolid,279738347.0,313437,Valladolid,Castilla y León
+2011,Vitoria-Gasteiz,425996585.10999995,239562,Araba/Álava,País Vasco
+2011,Zamora,56633724.85999999,65525,Zamora,Castilla y León
+2011,Zaragoza,703303397.0,674725,Zaragoza,Aragón
+2012,Albacete,148580001.7,172472,Albacete,Castilla-La Mancha
+2012,Alicante/Alacant,265349617.82999998,334678,Alicante/Alacant,Comunidad Valenciana
+2012,Almería,178935510.56,191443,Almería,Andalucía
+2012,Ávila,54041769.3,58915,Ávila,Castilla y León
+2012,Badajoz,103827901.19999999,152270,Badajoz,Extremadura
+2012,Barcelona,2561895795.1,1620943,Barcelona,Cataluña
+2012,Bilbao,500196555.0,351629,Bizkaia,País Vasco
+2012,Burgos,204958417.23000002,179906,Burgos,Castilla y León
+2012,Cáceres,99192829.14,95668,Cáceres,Extremadura
+2012,Cádiz,145951539.25,123948,Cádiz,Andalucía
+2012,Castellón de la Plana/Castelló de la Plana,165376932.29,180204,Castellón/Castelló,Comunidad Valenciana
+2012,Ciudad Real,67975250.24000001,74921,Ciudad Real,Castilla-La Mancha
+2012,Córdoba,316478644.03999996,328841,Córdoba,Andalucía
+2012,"Coruña, A",229842200.00000003,246146,"Coruña, A",Galicia
+2012,Cuenca,55815290.43,57032,Cuenca,Castilla-La Mancha
+2012,Donostia/San Sebastián,335702758.35,186409,Gipuzkoa,País Vasco
+2012,Girona,97928800.0,97198,Girona,Cataluña
+2012,Granada,262074361.21999997,239017,Granada,Andalucía
+2012,Guadalajara,72111331.0,84803,Guadalajara,Castilla-La Mancha
+2012,Huelva,151941778.85,148568,Huelva,Andalucía
+2012,Huesca,50773865.46,52296,Huesca,Aragón
+2012,Jaén,169029497.13,116731,Jaén,Andalucía
+2012,León,134140940.0,131680,León,Castilla y León
+2012,Lleida,154690333.92000002,139834,Lleida,Cataluña
+2012,Logroño,145641000.0,153402,"Rioja, La",La Rioja
+2012,Lugo,91915290.32999998,98457,Lugo,Galicia
+2012,Madrid,4942020428.0,3233527,Madrid,Comunidad de Madrid
+2012,Málaga,645545205.89,567433,Málaga,Andalucía
+2012,Murcia,409397755.0,441354,Murcia,Región de Murcia
+2012,Ourense,95783710.08999999,107597,Ourense,Galicia
+2012,Oviedo,196706382.0,225973,Asturias,Principado de Asturias
+2012,Palencia,84241452.0,81198,Palencia,Castilla y León
+2012,Palma de Mallorca,433622834.84000003,407648,"Balears, Illes",Baleares
+2012,"Palmas de Gran Canaria, Las",302904319.9,382296,"Palmas, Las",Canarias
+2012,Pamplona/Iruña,191529546.0,197604,Navarra,Comunidad Foral de Navarra
+2012,Pontevedra,65771300.0,82684,Pontevedra,Galicia
+2012,Salamanca,143339904.49,152048,Salamanca,Castilla y León
+2012,Santa Cruz de Tenerife,210252252.81,206965,Santa Cruz de Tenerife,Canarias
+2012,Santander,191960969.39999998,178465,Cantabria,Cantabria
+2012,Segovia,58281562.0,54844,Segovia,Castilla y León
+2012,Sevilla,850564386.2,702355,Sevilla,Andalucía
+2012,Soria,53535000.0,40147,Soria,Castilla y León
+2012,Tarragona,153782308.0,133954,Tarragona,Cataluña
+2012,Teruel,32313634.090000004,35841,Teruel,Aragón
+2012,Toledo,93241510.0,84019,Toledo,Castilla-La Mancha
+2012,Valencia,756083502.29,797028,Valencia/València,Comunidad Valenciana
+2012,Valladolid,278350096.0,311501,Valladolid,Castilla y León
+2012,Vitoria-Gasteiz,425996585.10999995,242223,Araba/Álava,País Vasco
+2012,Zamora,60009449.61,65362,Zamora,Castilla y León
+2012,Zaragoza,666785620.0,679624,Zaragoza,Aragón
+2013,Albacete,143243753.65,172693,Albacete,Castilla-La Mancha
+2013,Alicante/Alacant,257502925.72,335052,Alicante/Alacant,Comunidad Valenciana
+2013,Almería,170721638.32,192697,Almería,Andalucía
+2013,Ávila,51894496.34,59258,Ávila,Castilla y León
+2013,Badajoz,105862228.42999999,150621,Badajoz,Extremadura
+2013,Barcelona,2323938154.42,1611822,Barcelona,Cataluña
+2013,Burgos,198340397.23000002,179097,Burgos,Castilla y León
+2013,Cáceres,75941985.9,95925,Cáceres,Extremadura
+2013,Cádiz,161145827.14000002,122990,Cádiz,Andalucía
+2013,Castellón de la Plana/Castelló de la Plana,171923250.82999998,180185,Castellón/Castelló,Comunidad Valenciana
+2013,Ciudad Real,68577000.0,74872,Ciudad Real,Castilla-La Mancha
+2013,Córdoba,333727089.23,328704,Córdoba,Andalucía
+2013,"Coruña, A",243100500.0,245923,"Coruña, A",Galicia
+2013,Cuenca,53998333.36000001,56107,Cuenca,Castilla-La Mancha
+2013,Girona,99665424.35,97292,Girona,Cataluña
+2013,Granada,266923723.62,237818,Granada,Andalucía
+2013,Guadalajara,73411623.0,84504,Guadalajara,Castilla-La Mancha
+2013,Huelva,130933360.10000001,148101,Huelva,Andalucía
+2013,Huesca,50373573.6,52418,Huesca,Aragón
+2013,Jaén,175113462.26,116176,Jaén,Andalucía
+2013,León,127809109.57000001,130601,León,Castilla y León
+2013,Lleida,151838691.95,139809,Lleida,Cataluña
+2013,Logroño,145600000.0,153066,"Rioja, La",La Rioja
+2013,Lugo,94673797.63,98761,Lugo,Galicia
+2013,Madrid,4564125024.0,3207247,Madrid,Comunidad de Madrid
+2013,Málaga,623497677.3599999,568479,Málaga,Andalucía
+2013,Murcia,392269060.0,438246,Murcia,Región de Murcia
+2013,Ourense,97999647.47,107542,Ourense,Galicia
+2013,Oviedo,233204000.0,225089,Asturias,Principado de Asturias
+2013,Palencia,78702111.24,80649,Palencia,Castilla y León
+2013,Palma de Mallorca,404020496.78,398162,"Balears, Illes",Baleares
+2013,"Palmas de Gran Canaria, Las",302273207.35,383050,"Palmas, Las",Canarias
+2013,Pontevedra,60114856.0,82934,Pontevedra,Galicia
+2013,Salamanca,143914491.3,149528,Salamanca,Castilla y León
+2013,Santa Cruz de Tenerife,229770657.0,206593,Santa Cruz de Tenerife,Canarias
+2013,Santander,194145412.41000003,177123,Cantabria,Cantabria
+2013,Segovia,61457425.0,54309,Segovia,Castilla y León
+2013,Sevilla,894942988.5,700169,Sevilla,Andalucía
+2013,Soria,49094000.0,39753,Soria,Castilla y León
+2013,Tarragona,164185382.69,133545,Tarragona,Cataluña
+2013,Teruel,32786380.29,35961,Teruel,Aragón
+2013,Toledo,92411467.99999999,83593,Toledo,Castilla-La Mancha
+2013,Valencia,772944773.76,792303,Valencia/València,Comunidad Valenciana
+2013,Valladolid,267903174.0,309714,Valladolid,Castilla y León
+2013,Zamora,56792788.57,64986,Zamora,Castilla y León
+2013,Zaragoza,676671999.0,682004,Zaragoza,Aragón
+2014,Albacete,147611248.60999998,172487,Albacete,Castilla-La Mancha
+2014,Alicante/Alacant,245585597.87,332067,Alicante/Alacant,Comunidad Valenciana
+2014,Almería,181202839.38,193351,Almería,Andalucía
+2014,Ávila,54380126.04,58933,Ávila,Castilla y León
+2014,Badajoz,103623534.32,150517,Badajoz,Extremadura
+2014,Barcelona,2846093189.0600004,1602386,Barcelona,Cataluña
+2014,Burgos,201062376.05999997,177776,Burgos,Castilla y León
+2014,Cáceres,73063280.82000001,95855,Cáceres,Extremadura
+2014,Castellón de la Plana/Castelló de la Plana,165358912.89,173841,Castellón/Castelló,Comunidad Valenciana
+2014,Ciudad Real,69546549.0,74960,Ciudad Real,Castilla-La Mancha
+2014,Córdoba,334351786.45000005,328041,Córdoba,Andalucía
+2014,"Coruña, A",249800500.0,244810,"Coruña, A",Galicia
+2014,Cuenca,58124157.0,55738,Cuenca,Castilla-La Mancha
+2014,Donostia/San Sebastián,314679404.72,186126,Gipuzkoa,País Vasco
+2014,Girona,102420722.49999997,97227,Girona,Cataluña
+2014,Granada,269882792.96,237540,Granada,Andalucía
+2014,Guadalajara,73604226.0,83720,Guadalajara,Castilla-La Mancha
+2014,Huelva,119421270.74000001,147212,Huelva,Andalucía
+2014,Huesca,54871166.63,52555,Huesca,Aragón
+2014,Jaén,160198129.47,115837,Jaén,Andalucía
+2014,León,125787503.69,129551,León,Castilla y León
+2014,Lleida,155964104.62,139176,Lleida,Cataluña
+2014,Logroño,151585000.0,151962,"Rioja, La",La Rioja
+2014,Lugo,83483001.39000002,98560,Lugo,Galicia
+2014,Madrid,4699310629.0,3165235,Madrid,Comunidad de Madrid
+2014,Málaga,634899618.46,566913,Málaga,Andalucía
+2014,Murcia,391403421.0,439712,Murcia,Región de Murcia
+2014,Oviedo,207090000.0,223765,Asturias,Principado de Asturias
+2014,Palencia,76821870.78,80178,Palencia,Castilla y León
+2014,Palma de Mallorca,426798007.43000007,399093,"Balears, Illes",Baleares
+2014,"Palmas de Gran Canaria, Las",301410617.90999997,382283,"Palmas, Las",Canarias
+2014,Pontevedra,68750336.29,82946,Pontevedra,Galicia
+2014,Salamanca,141669574.40000004,148042,Salamanca,Castilla y León
+2014,Santa Cruz de Tenerife,253544707.0,205279,Santa Cruz de Tenerife,Canarias
+2014,Santander,194284020.0,175736,Cantabria,Cantabria
+2014,Segovia,64077523.0,53260,Segovia,Castilla y León
+2014,Sevilla,871815643.1299999,696676,Sevilla,Andalucía
+2014,Soria,54700000.0,39516,Soria,Castilla y León
+2014,Tarragona,165960729.91,132199,Tarragona,Cataluña
+2014,Teruel,34510533.15,35675,Teruel,Aragón
+2014,Toledo,89927947.0,83334,Toledo,Castilla-La Mancha
+2014,Valencia,772644333.41,786424,Valencia/València,Comunidad Valenciana
+2014,Valladolid,263732064.0,306830,Valladolid,Castilla y León
+2014,Zamora,58667522.12,64423,Zamora,Castilla y León
+2014,Zaragoza,692262712.0,666058,Zaragoza,Aragón
+2015,Albacete,154377531.72,172487,Albacete,Castilla-La Mancha
+2015,Alicante/Alacant,248684157.57000002,332067,Alicante/Alacant,Comunidad Valenciana
+2015,Almería,190639585.54999998,193351,Almería,Andalucía
+2015,Ávila,55522313.480000004,58933,Ávila,Castilla y León
+2015,Badajoz,101623528.32000001,150517,Badajoz,Extremadura
+2015,Barcelona,2835295521.91,1602386,Barcelona,Cataluña
+2015,Burgos,210538565.0,177776,Burgos,Castilla y León
+2015,Cáceres,72956453.18,95855,Cáceres,Extremadura
+2015,Cádiz,166447963.81,121739,Cádiz,Andalucía
+2015,Castellón de la Plana/Castelló de la Plana,171611198.98999998,173841,Castellón/Castelló,Comunidad Valenciana
+2015,Ciudad Real,68761928.0,74960,Ciudad Real,Castilla-La Mancha
+2015,Córdoba,323087774.22999996,328041,Córdoba,Andalucía
+2015,"Coruña, A",256316999.99999997,244810,"Coruña, A",Galicia
+2015,Cuenca,49502578.82,55738,Cuenca,Castilla-La Mancha
+2015,Donostia/San Sebastián,297926558.79,186126,Gipuzkoa,País Vasco
+2015,Girona,105762424.94,97227,Girona,Cataluña
+2015,Granada,266743306.56,237540,Granada,Andalucía
+2015,Guadalajara,73101690.0,83720,Guadalajara,Castilla-La Mancha
+2015,Huelva,129255493.52,147212,Huelva,Andalucía
+2015,Huesca,51303197.32,52555,Huesca,Aragón
+2015,Jaén,204984195.49,115837,Jaén,Andalucía
+2015,León,132577285.0,129551,León,Castilla y León
+2015,Lleida,159499601.85,139176,Lleida,Cataluña
+2015,Logroño,155407000.0,151962,"Rioja, La",La Rioja
+2015,Lugo,93503825.74,98560,Lugo,Galicia
+2015,Madrid,4650554218.0,3165235,Madrid,Comunidad de Madrid
+2015,Málaga,645705018.7700001,566913,Málaga,Andalucía
+2015,Murcia,400356892.0,439712,Murcia,Región de Murcia
+2015,Oviedo,220832000.0,223765,Asturias,Principado de Asturias
+2015,Palencia,76912398.14,80178,Palencia,Castilla y León
+2015,Palma de Mallorca,420147694.67,399093,"Balears, Illes",Baleares
+2015,"Palmas de Gran Canaria, Las",315407924.1,382283,"Palmas, Las",Canarias
+2015,Pontevedra,72288500.0,82946,Pontevedra,Galicia
+2015,Salamanca,144533147.75,148042,Salamanca,Castilla y León
+2015,Santa Cruz de Tenerife,259089230.0,205279,Santa Cruz de Tenerife,Canarias
+2015,Santander,195600752.62,175736,Cantabria,Cantabria
+2015,Segovia,59499448.0,53260,Segovia,Castilla y León
+2015,Sevilla,878712585.81,696676,Sevilla,Andalucía
+2015,Soria,56265000.0,39516,Soria,Castilla y León
+2015,Tarragona,188781205.91,132199,Tarragona,Cataluña
+2015,Teruel,42684804.14,35675,Teruel,Aragón
+2015,Toledo,86318777.78000002,83334,Toledo,Castilla-La Mancha
+2015,Valencia,780353653.97,786424,Valencia/València,Comunidad Valenciana
+2015,Valladolid,286080657.0,306830,Valladolid,Castilla y León
+2015,Zamora,57190375.60000001,64423,Zamora,Castilla y León
+2015,Zaragoza,708554227.0,666058,Zaragoza,Aragón
