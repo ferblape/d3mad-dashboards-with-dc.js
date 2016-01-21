@@ -86,61 +86,78 @@ function makeGraphs(error,data){
   yearsChart = dc.pieChart("#years");
   autonomousRegionsChart = dc.rowChart("#autonomous-regions");
   evolutionChart = dc.lineChart("#evolution");
-  //mapChart = dc.geoChoroplethChart("#map");
+  mapChart = dc.geoChoroplethChart("#map");
 
-  meanBudgetDisplay
-    .group(meanBudgetGroup)
-    .valueAccessor(function (p){ return p.meanBudget;})
-    .formatNumber(function(d){ return accounting.formatNumber(d / 1000000, {precision: 0}) + 'M€';});
+  d3.json("provinces_carto.geojson", function(error, json){
+    if (error) return console.error(error);
 
-  meanBudgetPerInhabitantDisplay
-    .group(meanBudgetPerInhabitantGroup)
-    .valueAccessor(function (p){ return p.meanBudgetPerInhabitant;})
-    .formatNumber(function(d){ return accounting.formatNumber(d, {precision: 2}) + '€';});
+    chartMap
+      .height(450)
+      .dimension(provinceDim)
+      .group(provinceGroup)
+      .colors(mapColors)
+      .valueAccessor(getMapValue)
+      .overlayGeoJson(json.features, "provinces", function(p){
+        return p.properties.nombre99;
+      })
+      .title(function(p) {
+        console.log(p);
+      });
 
-  yearsChart
-    .dimension(yearsDim)
-    .title(function(d){
-      return d.key;
-    })
-    .label(function(d){
-      return d.key.getFullYear();
-    })
-    .group(budgetPerYearGroup);
+    meanBudgetDisplay
+      .group(meanBudgetGroup)
+      .valueAccessor(function (p){ return p.meanBudget;})
+      .formatNumber(function(d){ return accounting.formatNumber(d / 1000000, {precision: 0}) + 'M€';});
 
-  autonomousRegionsChart
-    .dimension(autonomousRegionsDim)
-    .group(budgetPerAutonomousRegionGroup)
-    .title(function(d) {
-      return d.key + " " + accounting.formatNumber(d.value);
-    })
-    .elasticX(true)
-    .height(400)
-    .xAxis().ticks(2);
+    meanBudgetPerInhabitantDisplay
+      .group(meanBudgetPerInhabitantGroup)
+      .valueAccessor(function (p){ return p.meanBudgetPerInhabitant;})
+      .formatNumber(function(d){ return accounting.formatNumber(d, {precision: 2}) + '€';});
 
-  var values = d3.extent(meanBudgetPerInhabitantPerYearGroup.all().map(function(v){ return v.value.meanBudgetPerInhabitant; }));
+    yearsChart
+      .dimension(yearsDim)
+      .title(function(d){
+        return d.key;
+      })
+      .label(function(d){
+        return d.key.getFullYear();
+      })
+      .group(budgetPerYearGroup);
 
-  evolutionChart
-    .dimension(yearsDim)
-    .group(meanBudgetPerInhabitantPerYearGroup)
-    .margins({top: 50, right: 50, bottom: 25, left: 90})
-    .x(d3.time.scale().domain([new Date(2010, 0, 1), new Date(2015, 0, 1)]))
-    .valueAccessor(function(d) {
-      return d.value.meanBudgetPerInhabitant;
-    })
-    .yAxisPadding(150)
-    .title(function(d) {
-      return d.key + " " + accounting.formatNumber(d.value);
-    })
-    .title(function(d) {
-      return d.key + " " + accounting.formatNumber(d.value);
-    })
-    .height(250)
-    .elasticY(true)
-    .yAxis()
-    .tickFormat(function(v){return accounting.formatNumber(v, {precision: 0}) + '€';});
+    autonomousRegionsChart
+      .dimension(autonomousRegionsDim)
+      .group(budgetPerAutonomousRegionGroup)
+      .title(function(d) {
+        return d.key + " " + accounting.formatNumber(d.value);
+      })
+      .elasticX(true)
+      .height(400)
+      .xAxis().ticks(2);
 
-  dc.renderAll();
+    var values = d3.extent(meanBudgetPerInhabitantPerYearGroup.all().map(function(v){ return v.value.meanBudgetPerInhabitant; }));
+
+    evolutionChart
+      .dimension(yearsDim)
+      .group(meanBudgetPerInhabitantPerYearGroup)
+      .margins({top: 50, right: 50, bottom: 25, left: 90})
+      .x(d3.time.scale().domain([new Date(2010, 0, 1), new Date(2015, 0, 1)]))
+      .valueAccessor(function(d) {
+        return d.value.meanBudgetPerInhabitant;
+      })
+      .yAxisPadding(150)
+      .title(function(d) {
+        return d.key + " " + accounting.formatNumber(d.value);
+      })
+      .title(function(d) {
+        return d.key + " " + accounting.formatNumber(d.value);
+      })
+      .height(250)
+      .elasticY(true)
+      .yAxis()
+      .tickFormat(function(v){return accounting.formatNumber(v, {precision: 0}) + '€';});
+
+    dc.renderAll();
+  })
 }
 
 
