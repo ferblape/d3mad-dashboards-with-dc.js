@@ -81,6 +81,9 @@ function makeGraphs(error,data){
   var autonomousRegionsDim = budgets.dimension(function(d){ return d.autonomous_region; });
   var budgetPerAutonomousRegionGroup = autonomousRegionsDim.group().reduceSum(function(d){ return d.budget; });
 
+  var provinceDim = budgets.dimension(function(d){ return d.province; });
+  var budgetPerProvinceGroup = provinceDim.group().reduceSum(function(d){ return d.budgetPerInhabitant; });
+
   meanBudgetDisplay = dc.numberDisplay("#mean-budget");
   meanBudgetPerInhabitantDisplay = dc.numberDisplay("#mean-budget-per-inhabitant");
   yearsChart = dc.pieChart("#years");
@@ -91,18 +94,79 @@ function makeGraphs(error,data){
   d3.json("provinces_carto.geojson", function(error, json){
     if (error) return console.error(error);
 
-    chartMap
+    var colors = ["#d75231", "#ec8b66", "#fcdbc8", "#eff3ff", "#a0cae0", "#4893c4", "#022977"];
+
+    mapChart
       .height(450)
+      .colors(colors)
       .dimension(provinceDim)
-      .group(provinceGroup)
-      .colors(mapColors)
-      .valueAccessor(getMapValue)
+      .group(budgetPerProvinceGroup)
+      .valueAccessor(function(d){
+        return d.value;
+      })
       .overlayGeoJson(json.features, "provinces", function(p){
         return p.properties.nombre99;
       })
-      .title(function(p) {
-        console.log(p);
+      .on('preRender', function(chart, filter){
+        var mapColors = d3.scale
+          .quantize()
+          .domain(d3.extent(chart.group().all().map(function(d){ return d.value; })))
+          .range(colors);
+
+        chart
+          .colors(mapColors)
+          .colorCalculator(function(d){ return (d !== undefined) ? mapColors(d) : '#ccc'; });
+      })
+      .on('preRedraw', function(chart, filter){
+        var mapColors = d3.scale
+          .quantize()
+          .domain(d3.extent(chart.group().all().map(function(d){ return d.value; })))
+          .range(colors);
+
+        chart
+          .colors(mapColors)
+          .colorCalculator(function(d){ return (d !== undefined) ? mapColors(d) : '#ccc'; });
+      })
+      .on('renderlet', function(){
+        if(d3.select("#map-legend svg")[0][0] !== null) {
+          var e = document.getElementById('map-legend');
+          e.innerHTML = '';
+        }
+
+        var mapColors = d3.scale
+          .quantize()
+          .domain(d3.extent(mapChart.group().all().map(function(d){ return d.value; })))
+          .range(colors);
+
+        var svg = d3.select("#map-legend")
+          .append("svg")
+          .attr('width',500);
+
+        svg.append("g")
+          .attr("class", "legendLinear");
+
+        var legendLinear = d3.legend.color()
+          .shapeWidth(40)
+          .cells(mapColors.domain())
+          .orient('vertical')
+          .labelFormat(function(v){
+            return accounting.formatNumber(v, {precision: 0});
+          })
+          .scale(mapColors);
+
+        svg.select(".legendLinear")
+          .call(legendLinear);
+      })
+      .title(function(d) {
+        return d.key + " " + accounting.formatNumber(d.value);
       });
+
+    var projection = d3.geo.mercator()
+      .scale(2000)
+      .center([0, 38.8]);
+
+    mapChart.projection(projection);
+
 
     meanBudgetDisplay
       .group(meanBudgetGroup)
