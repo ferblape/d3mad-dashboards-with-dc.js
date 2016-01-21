@@ -118,20 +118,27 @@ function makeGraphs(error,data){
     .height(400)
     .xAxis().ticks(2);
 
+  var values = d3.extent(meanBudgetPerInhabitantPerYearGroup.all().map(function(v){ return v.value.meanBudgetPerInhabitant; }));
+
   evolutionChart
     .dimension(yearsDim)
     .group(meanBudgetPerInhabitantPerYearGroup)
-    .renderArea(true)
-    .margins({top: 30, right: 50, bottom: 25, left: 90})
+    .margins({top: 50, right: 50, bottom: 25, left: 90})
     .x(d3.time.scale().domain([new Date(2010, 0, 1), new Date(2015, 0, 1)]))
     .valueAccessor(function(d) {
       return d.value.meanBudgetPerInhabitant;
+    })
+    .yAxisPadding(150)
+    .title(function(d) {
+      return d.key + " " + accounting.formatNumber(d.value);
     })
     .title(function(d) {
       return d.key + " " + accounting.formatNumber(d.value);
     })
     .height(250)
-    .elasticY(true);
+    .elasticY(true)
+    .yAxis()
+    .tickFormat(function(v){return accounting.formatNumber(v, {precision: 0}) + '€';});
 
   dc.renderAll();
 }
