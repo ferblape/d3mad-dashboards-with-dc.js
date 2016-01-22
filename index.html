@@ -60,10 +60,10 @@
 
           > Dimensional Charting Javascript Library
 
-          - Project page: http://dc-js.github.io/dc.js/
-          - Source code: https://github.com/dc-js/dc.js
-          - Annotated source code of the example page: http://dc-js.github.io/dc.js/docs/stock.html
-          - API documentation: https://github.com/dc-js/dc.js/blob/master/web/docs/api-latest.md
+          - http://dc-js.github.io/dc.js/
+          - [Source code](https://github.com/dc-js/dc.js)
+          - [Annotated source code of the example page](http://dc-js.github.io/dc.js/docs/stock.html)
+          - [API documentation](https://github.com/dc-js/dc.js/blob/master/web/docs/api-latest.md)
         </section>
 
         <section data-markdown>
@@ -77,6 +77,12 @@
           ## Our example dataset: Spanish municipalities budgets
 
           ![](images/dataset1.png)
+        </section>
+
+        <section data-markdown>
+          ## The dashboard we are going to create
+
+          http://ferblape.github.io/d3mad-dashboards-with-dc.js/example1/
         </section>
 
         <section data-markdown>
@@ -101,23 +107,27 @@
         <section data-markdown>
           ### Dimensions
 
-          - Dimensions are just the data concepts we are going to work with
-          - Example: budget, population, budget per inhabitant
+          - Dimensions are just the data we want to filter by
+          - Example: years, provinces, autonomous regions....
         </section>
 
         <section data-markdown>
           ### Groups
 
-          - Filters: the concepts we are going to filter by
-          - Example: year, province...
-          - Groups are the result of filtering the dimensions
+          - Groups are the result of calculating our variables filtered by the dimensions
           - Example: budget per year, mean budget per province
         </section>
 
         <section data-markdown>
           ## Example
 
-          Declare some dimensions: budget, population, budget per inhabitant
+          Declare some dimensions: years and provinces.
+        </section>
+
+        <section data-markdown>
+          ## Our example dataset: Spanish municipalities budgets
+
+          ![](images/dataset1.png)
         </section>
 
         <section>
@@ -130,6 +140,7 @@ d3.csv('/datasets/presupuestos-municipales.csv', function(error, data){
     d.budget = +d.budget;
     d.population = +d.population;
     d.year = +d.year;
+    d.date = new Date(d.year, 0, 1);
     d.budgetPerInhabitant = (d.budget / d.population);
   });
 
@@ -153,52 +164,9 @@ province: "Albacete",...}
           <h2>Declaring our dimensions</h2>
 
           <pre><code class="hljs" data-trim>
-var budgetDim = budgets.dimension(function(d){ return d.budget; });
+var yearsDim = budgets.dimension(function(d){ return d.date; });
 
-var populationDim = budgets.dimension(function(d){
-  return d.population;
-});
-
-var budgetPerInhabitantDim = budgets.dimension(function(d){
-  return d.budgetPerInhabitant;
-});
-          </code></pre>
-        </section>
-
-        <section>
-          <h2>Using a dimension</h2>
-
-          <pre><code class="hljs" data-trim>
-console.log(budgetDim.top(3));
-
-// [Object, Object, Object]
-
-// First object is:
-//   autonomous_region: "Comunidad de Madrid"
-//   budget: 5279623775
-//   budgetPerInhabitant: 1617.017558448018
-//   city: "Madrid"
-//   population: 3265038
-//   province: "Madrid"
-//   year: 2010
-          </code></pre>
-        </section>
-
-        <section>
-          <h2>Using a dimension</h2>
-          <pre><code class="hljs" data-trim>
-console.log(budgetPerInhabitantDim.top(3));
-
-// [Object, Object, Object]
-
-// First object is:
-//   autonomous_region: "Andalucía"
-//   budget: 256383574.78000003
-//   budgetPerInhabitant: 2195.421984569408
-//   city: "Jaén"
-//   population: 116781
-//   province: "Jaén"
-//   year: 2011
+var provinceDim = budgets.dimension(function(d){ return d.province; });
           </code></pre>
         </section>
 
@@ -212,11 +180,104 @@ console.log(budgetPerInhabitantDim.top(3));
         <section data-markdown>
           ## Groups
 
-          - What if we want to know the municipality with more budget per inhabitant in 2013?
-          - Groups are intended to filter over the dimensions
-          - What are the filtering columns in our dataset?
+          - Groups create collections of data, grouping a given column by a given filter
+          - Example: budget per year
+          - Groups are declared from a **dimension** or from the whole data, providing a **reduce** function
+        </section>
 
-          ![](images/dataset1.png)
+        <section>
+          <h2>Calculating the budget per year</h2>
+
+          <pre><code class="hljs" data-trim>
+var yearsDim = budgets.dimension(function(d){ return d.date; });
+
+var budgetPerYearGroup = yearsDim
+                          .group()
+                          .reduceSum(function(d){
+                            return d.budget;
+                          });
+          </code></pre>
+
+          <pre><code class="hljs" data-trim>
+> budgetPerYearGroup.top(10).map(function(d){console.log(d);});
+
+[Log] {key: Fri Jan 01 2010 00:00:00, value: 19953790555.04}
+[Log] {key: Sat Jan 01 2011 00:00:00, value: 18620250780.480003}
+[Log] {key: Sun Jan 01 2012 00:00:00, value: 18106387923.29}
+[Log] {key: Thu Jan 01 2015 00:00:00, value: 17121299191.05}
+[Log] {key: Wed Jan 01 2014 00:00:00, value: 16805983230.210001}
+[Log] {key: Tue Jan 01 2013 00:00:00, value: 16069487367.370003}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Calculating the mean budget per year</h2>
+
+          <pre><code class="hljs" data-trim>
+var yearsDim = budgets.dimension(function(d){ return d.date; });
+
+var meameanBudgetPerYearGroup = yearsDim
+                                  .group()
+                                  .reduce(addElement, removeElement, initialize);
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Calculating the mean budget per year</h2>
+          <pre><code class="hljs" data-trim>
+var addElement = function(p, v){
+  p.count++;
+  p.totalBudget += v.budget;
+  p.totalPopulation += v.population;
+  p.totalBudgetPerInhabitant += v.budgetPerInhabitant;
+  p.meanBudget = p.totalBudget / p.count;
+  p.meanBudgetPerInhabitant = p.totalBudgetPerInhabitant / p.count;
+  return p;
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Calculating the mean budget per year</h2>
+          <pre><code class="hljs" data-trim>
+var removeElement = function(p, v){
+  p.count--;
+  p.totalBudget -= v.budget;
+  p.totalPopulation -= v.population;
+  p.totalBudgetPerInhabitant -= v.budgetPerInhabitant;
+  p.meanBudget = p.totalBudget / p.count;
+  p.meanBudgetPerInhabitant = p.totalBudgetPerInhabitant / p.count;
+  return p;
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Calculating the mean budget per year</h2>
+          <pre><code class="hljs" data-trim>
+var initialize = function(){
+  return {
+    count: 0,
+    totalBudget: 0,
+    totalPopulation: 0,
+    totalBudgetPerInhabitant: 0,
+    meanBudget: 0,
+    meanBudgetPerInhabitant: 0
+  };
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Calculating the mean budget per year</h2>
+          <pre><code class="hljs" data-trim>
+> meanBudgetPerYearGroup.top(1).map(function(d){console.log(d);});
+
+[Log] {key: Tue Jan 01 2011 00:00:00, {count: 50,
+  totalBudget: 18620250780.480003, totalPopulation: 15064533,
+  totalBudgetPerInhabitant: 56708.28435774334,
+  meanBudget: 372405015.60960007, …}}
+          </code></pre>
         </section>
 
         <section>
