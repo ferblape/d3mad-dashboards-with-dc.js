@@ -180,13 +180,13 @@ function makeGraphs(error,data){
 
     yearsChart
       .dimension(yearsDim)
+      .group(budgetPerYearGroup)
       .title(function(d){
-        return d.key;
+        return accounting.formatNumber(d.value, {precision: 0}) + '€';
       })
       .label(function(d){
         return d.key.getFullYear();
-      })
-      .group(budgetPerYearGroup);
+      });
 
     autonomousRegionsChart
       .dimension(autonomousRegionsDim)
