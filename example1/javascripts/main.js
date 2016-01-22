@@ -38,9 +38,9 @@ function makeGraphs(error,data){
 
   var addElement = function(p, v){
     p.count++;
-    p.totalBudget += v.budget;
-    p.totalPopulation += v.population;
-    p.totalBudgetPerInhabitant += v.budgetPerInhabitant;
+    p.totalBudget += v.budget || 0;
+    p.totalPopulation += v.population || 0;
+    p.totalBudgetPerInhabitant += v.budgetPerInhabitant || 0;
 
     p.meanBudget = p.totalBudget / p.count;
     p.meanBudgetPerInhabitant = p.totalBudgetPerInhabitant / p.count;
@@ -50,9 +50,9 @@ function makeGraphs(error,data){
 
   var removeElement = function(p, v){
     p.count--;
-    p.totalBudget -= v.budget;
-    p.totalPopulation -= v.population;
-    p.totalBudgetPerInhabitant -= v.budgetPerInhabitant;
+    p.totalBudget -= v.budget || 0;
+    p.totalPopulation -= v.population || 0;
+    p.totalBudgetPerInhabitant -= v.budgetPerInhabitant || 0;
 
     p.meanBudget = p.totalBudget / p.count;
     p.meanBudgetPerInhabitant = p.totalBudgetPerInhabitant / p.count;
@@ -82,7 +82,7 @@ function makeGraphs(error,data){
   var budgetPerAutonomousRegionGroup = autonomousRegionsDim.group().reduceSum(function(d){ return d.budget; });
 
   var provinceDim = budgets.dimension(function(d){ return d.province; });
-  var budgetPerProvinceGroup = provinceDim.group().reduceSum(function(d){ return d.budgetPerInhabitant; });
+  var budgetPerProvinceGroup = provinceDim.group().reduce(addElement, removeElement, initialize);
 
   meanBudgetDisplay = dc.numberDisplay("#mean-budget");
   meanBudgetPerInhabitantDisplay = dc.numberDisplay("#mean-budget-per-inhabitant");
@@ -102,7 +102,7 @@ function makeGraphs(error,data){
       .dimension(provinceDim)
       .group(budgetPerProvinceGroup)
       .valueAccessor(function(d){
-        return d.value;
+        return d.value.meanBudgetPerInhabitant;
       })
       .overlayGeoJson(json.features, "provinces", function(p){
         return p.properties.nombre99;
@@ -110,7 +110,7 @@ function makeGraphs(error,data){
       .on('preRender', function(chart, filter){
         var mapColors = d3.scale
           .quantize()
-          .domain(d3.extent(chart.group().all().map(function(d){ return d.value; })))
+          .domain(d3.extent(chart.group().all().map(function(d){ return d.value.meanBudgetPerInhabitant; })))
           .range(colors);
 
         chart
@@ -120,7 +120,7 @@ function makeGraphs(error,data){
       .on('preRedraw', function(chart, filter){
         var mapColors = d3.scale
           .quantize()
-          .domain(d3.extent(chart.group().all().map(function(d){ return d.value; })))
+          .domain(d3.extent(chart.group().all().map(function(d){ return d.value.meanBudgetPerInhabitant; })))
           .range(colors);
 
         chart
@@ -135,7 +135,7 @@ function makeGraphs(error,data){
 
         var mapColors = d3.scale
           .quantize()
-          .domain(d3.extent(mapChart.group().all().map(function(d){ return d.value; })))
+          .domain(d3.extent(mapChart.group().all().map(function(d){ return d.value.meanBudgetPerInhabitant; })))
           .range(colors);
 
         var svg = d3.select("#map-legend")
