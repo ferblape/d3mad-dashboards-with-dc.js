@@ -76,7 +76,7 @@ function makeGraphs(error,data){
 
   var yearsDim = budgets.dimension(function(d){ return d.date; });
   var budgetPerYearGroup = yearsDim.group().reduceSum(function(d){ return d.budget; });
-  var meanBudgetPerInhabitantPerYearGroup = yearsDim.group().reduce(addElement, removeElement, initialize);
+  var meanBudgetPerYearGroup = yearsDim.group().reduce(addElement, removeElement, initialize);
 
   var autonomousRegionsDim = budgets.dimension(function(d){ return d.autonomous_region; });
   var budgetPerAutonomousRegionGroup = autonomousRegionsDim.group().reduceSum(function(d){ return d.budget; });
@@ -198,11 +198,11 @@ function makeGraphs(error,data){
       .height(400)
       .xAxis().ticks(2);
 
-    var values = d3.extent(meanBudgetPerInhabitantPerYearGroup.all().map(function(v){ return v.value.meanBudgetPerInhabitant; }));
+    var values = d3.extent(meanBudgetPerYearGroup.all().map(function(v){ return v.value.meanBudgetPerInhabitant; }));
 
     evolutionChart
       .dimension(yearsDim)
-      .group(meanBudgetPerInhabitantPerYearGroup)
+      .group(meanBudgetPerYearGroup)
       .margins({top: 50, right: 50, bottom: 25, left: 90})
       .x(d3.time.scale().domain([new Date(2010, 0, 1), new Date(2015, 0, 1)]))
       .valueAccessor(function(d) {
