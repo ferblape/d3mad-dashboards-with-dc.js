@@ -164,9 +164,19 @@ province: "Albacete",...}
           <h2>Declaring our dimensions</h2>
 
           <pre><code class="hljs" data-trim>
-var yearsDim = budgets.dimension(function(d){ return d.date; });
+d3.csv('/datasets/presupuestos-municipales.csv', function(error, data){
+  // Format the data
+  data.forEach(function(d){
+    d.budget = +d.budget;
+    ...
+  });
 
-var provinceDim = budgets.dimension(function(d){ return d.province; });
+  // Construct a new crossfilter
+  var budgets = crossfilter(data);
+
+  var yearsDim = budgets.dimension(function(d){ return d.date; });
+
+  var provinceDim = budgets.dimension(function(d){ return d.province; });
           </code></pre>
         </section>
 
@@ -202,11 +212,11 @@ var budgetPerYearGroup = yearsDim
 > budgetPerYearGroup.top(10).map(function(d){console.log(d);});
 
 [Log] {key: Fri Jan 01 2010 00:00:00, value: 19953790555.04}
-[Log] {key: Sat Jan 01 2011 00:00:00, value: 18620250780.480003}
+[Log] {key: Sat Jan 01 2011 00:00:00, value: 18620250780.48}
 [Log] {key: Sun Jan 01 2012 00:00:00, value: 18106387923.29}
 [Log] {key: Thu Jan 01 2015 00:00:00, value: 17121299191.05}
-[Log] {key: Wed Jan 01 2014 00:00:00, value: 16805983230.210001}
-[Log] {key: Tue Jan 01 2013 00:00:00, value: 16069487367.370003}
+[Log] {key: Wed Jan 01 2014 00:00:00, value: 16805983230.21}
+[Log] {key: Tue Jan 01 2013 00:00:00, value: 16069487367.37}
           </code></pre>
         </section>
 
@@ -222,16 +232,26 @@ var meameanBudgetPerYearGroup = yearsDim
           </code></pre>
         </section>
 
+          <section>
+          <h2>Calculating the mean budget per year</h2>
+          <pre><code class="hljs" data-trim>
+var initialize = function(){
+  return {
+    count: 0,
+    totalBudget: 0,
+    meanBudget: 0,
+  };
+}
+          </code></pre>
+        </section>
+
         <section>
           <h2>Calculating the mean budget per year</h2>
           <pre><code class="hljs" data-trim>
 var addElement = function(p, v){
   p.count++;
   p.totalBudget += v.budget;
-  p.totalPopulation += v.population;
-  p.totalBudgetPerInhabitant += v.budgetPerInhabitant;
   p.meanBudget = p.totalBudget / p.count;
-  p.meanBudgetPerInhabitant = p.totalBudgetPerInhabitant / p.count;
   return p;
 }
           </code></pre>
@@ -243,10 +263,7 @@ var addElement = function(p, v){
 var removeElement = function(p, v){
   p.count--;
   p.totalBudget -= v.budget;
-  p.totalPopulation -= v.population;
-  p.totalBudgetPerInhabitant -= v.budgetPerInhabitant;
   p.meanBudget = p.totalBudget / p.count;
-  p.meanBudgetPerInhabitant = p.totalBudgetPerInhabitant / p.count;
   return p;
 }
           </code></pre>
@@ -255,28 +272,60 @@ var removeElement = function(p, v){
         <section>
           <h2>Calculating the mean budget per year</h2>
           <pre><code class="hljs" data-trim>
-var initialize = function(){
-  return {
-    count: 0,
-    totalBudget: 0,
-    totalPopulation: 0,
-    totalBudgetPerInhabitant: 0,
-    meanBudget: 0,
-    meanBudgetPerInhabitant: 0
-  };
-}
+> meanBudgetPerYearGroup.top(2).map(function(d){console.log(d);});
+
+[Log] {key: Tue Jan 01 2011 00:00:00, {count: 50,
+  totalBudget: 18620250780.48, meanBudget: 372405015.60}}
+[Log] {key: Tue Jan 01 2012 00:00:00, {count: 50,
+  totalBudget: 17232302324.38, meanBudget: 632403010.82}}
+          </code></pre>
+        </section>
+
+        <section data-markdown>
+          ## dc.js
+
+          - dc.js charts use crossfilter dimensions and groups
+          - charts are defined to filter by default
+          - http://ferblape.github.io/d3mad-dashboards-with-dc.js/example1/
+        </section>
+
+        <section>
+          <h2>Pie Chart</h2>
+
+          <pre><code class="hljs" data-trim>
+d3.csv('/datasets/presupuestos-municipales.csv', function(error, data){
+  // Format the data
+  data.forEach(function(d){
+    d.budget = +d.budget;
+    ...
+  });
+
+  // Construct a new crossfilter
+  var budgets = crossfilter(data);
+
+  var yearsDim = budgets.dimension(function(d){ return d.date; });
+  var budgetPerYearGroup = yearsDim.group().reduceSum(function(d){ return d.budget; });
+
+  yearsChart = dc.pieChart("#years");
           </code></pre>
         </section>
 
         <section>
-          <h2>Calculating the mean budget per year</h2>
-          <pre><code class="hljs" data-trim>
-> meanBudgetPerYearGroup.top(1).map(function(d){console.log(d);});
+          <h2>Pie Chart</h2>
 
-[Log] {key: Tue Jan 01 2011 00:00:00, {count: 50,
-  totalBudget: 18620250780.480003, totalPopulation: 15064533,
-  totalBudgetPerInhabitant: 56708.28435774334,
-  meanBudget: 372405015.60960007, …}}
+          <pre><code class="hljs" data-trim>
+...
+yearsChart = dc.pieChart("#years");
+
+yearsChart
+  .dimension(yearsDim)
+  .group(budgetPerYearGroup)
+  .title(function(d){
+    return accounting.formatNumber(d.value, {precision: 0}) + '€';
+  })
+  .label(function(d){
+    return d.key.getFullYear();
+  });
           </code></pre>
         </section>
 
