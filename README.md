@@ -1,12 +1,11 @@
-# Github.com y Git
+# Cómo crear un Dashboard con dc.js
 
-**Cómo publicar los datos y el código de nuestro proyectos en Github.com**
+Presentación realizada para la [reunión de enero del grupo D3.js Madrid](http://www.meetup.com/Madrid-D3-js/events/228011001/).
 
-Presentación realizada para las [Jornadas sobre Desigualdad](http://medialab-prado.es/article/convocatoria-explorando-desigualdad) convocadas por el Medialab Prado.
-
-Madrid, 2015
+Madrid, enero 2016
 
 ## Autor
 
 Fernando Blat
 http://populate.tools
+[@ferblape](https://twitter.com/ferblape)
