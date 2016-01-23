@@ -91,7 +91,6 @@ function makeGraphs(error,data){
 
     mapChart
       .height(450)
-      .colors(colors)
       .dimension(provinceDim)
       .group(budgetPerProvinceGroup)
       .valueAccessor(function(d){
@@ -202,9 +201,6 @@ function makeGraphs(error,data){
         return d.value.meanBudgetPerInhabitant;
       })
       .yAxisPadding(50)
-      .title(function(d) {
-        return d.key + " " + accounting.formatNumber(d.value);
-      })
       .title(function(d) {
         return d.key + " " + accounting.formatNumber(d.value);
       })

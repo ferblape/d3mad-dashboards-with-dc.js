@@ -101,20 +101,19 @@
 
           - Dimensions
           - Groups
-          - (there is a limit of 32 concurrent dimensions)
         </section>
 
         <section data-markdown>
           ### Dimensions
 
-          - Dimensions are just the data we want to filter by
+          - Dimensions are just the columns we want to filter by
           - Example: years, provinces, autonomous regions....
         </section>
 
         <section data-markdown>
           ### Groups
 
-          - Groups are the result of calculating our variables filtered by the dimensions
+          - Groups are the result of aggregating the variables filtered by the dimensions
           - Example: budget per year, mean budget per province
         </section>
 
@@ -196,7 +195,7 @@ d3.csv('/datasets/presupuestos-municipales.csv', function(error, data){
         </section>
 
         <section>
-          <h2>Calculating the budget per year</h2>
+          <h2>Budget per year</h2>
 
           <pre><code class="hljs" data-trim>
 var yearsDim = budgets.dimension(function(d){ return d.date; });
@@ -221,56 +220,65 @@ var budgetPerYearGroup = yearsDim
         </section>
 
         <section>
-          <h2>Calculating the mean budget per year</h2>
+          <h2>Mean budget per year</h2>
 
           <pre><code class="hljs" data-trim>
 var yearsDim = budgets.dimension(function(d){ return d.date; });
 
-var meameanBudgetPerYearGroup = yearsDim
-                                  .group()
-                                  .reduce(addElement, removeElement, initialize);
+var meanBudgetPerYearGroup = yearsDim
+                              .group()
+                              .reduce(addElement, removeElement,
+                                       initialize);
           </code></pre>
         </section>
 
           <section>
-          <h2>Calculating the mean budget per year</h2>
+          <h2>Mean budget per year</h2>
           <pre><code class="hljs" data-trim>
 var initialize = function(){
   return {
     count: 0,
     totalBudget: 0,
+    totalBudgetPerInhabitant: 0,
     meanBudget: 0,
+    meanBudgetPerInhabitant: 0
   };
 }
           </code></pre>
         </section>
 
         <section>
-          <h2>Calculating the mean budget per year</h2>
+          <h2>Mean budget per year</h2>
           <pre><code class="hljs" data-trim>
 var addElement = function(p, v){
   p.count++;
   p.totalBudget += v.budget;
+  p.totalBudgetPerInhabitant += v.budgetPerInhabitant;
+
   p.meanBudget = p.totalBudget / p.count;
+  p.meanBudgetPerInhabitant = p.totalBudgetPerInhabitant / p.count;
   return p;
 }
           </code></pre>
         </section>
 
         <section>
-          <h2>Calculating the mean budget per year</h2>
+          <h2>Mean budget per year</h2>
           <pre><code class="hljs" data-trim>
 var removeElement = function(p, v){
   p.count--;
   p.totalBudget -= v.budget;
+  p.totalBudgetPerInhabitant -= v.budgetPerInhabitant;
+
   p.meanBudget = p.totalBudget / p.count;
+  p.meanBudgetPerInhabitant = p.totalBudgetPerInhabitant / p.count;
   return p;
 }
           </code></pre>
         </section>
 
         <section>
-          <h2>Calculating the mean budget per year</h2>
+          <h2>Mean budget per year</h2>
           <pre><code class="hljs" data-trim>
 > meanBudgetPerYearGroup.top(2).map(function(d){console.log(d);});
 
@@ -279,6 +287,10 @@ var removeElement = function(p, v){
 [Log] {key: Tue Jan 01 2012 00:00:00, {count: 50,
   totalBudget: 17232302324.38, meanBudget: 632403010.82}}
           </code></pre>
+        </section>
+
+        <section data-markdown>
+          ## dc.js
         </section>
 
         <section data-markdown>
@@ -327,6 +339,196 @@ yearsChart
     return d.key.getFullYear();
   });
           </code></pre>
+
+          <p><img src="images/piechart.png" /></p>
+        </section>
+
+        <section data-markdown>
+          ## Pie Chart
+
+          - By default charts have a nice configuration
+          - Custom configuration: https://github.com/dc-js/dc.js/blob/master/web/docs/api-latest.md#dc.pieChart
+          - `radius`: set radius
+          - `innerRadius`: set the inner radius (donut!)
+          - `cx` and `cy`: set the center
+          - ...
+        </section>
+
+        <section data-markdown>
+          ## dc Charts
+
+          - All charts inherit from `dc.baseMixin`
+          - https://github.com/dc-js/dc.js/blob/master/web/docs/api-latest.md#dc.baseMixin
+          - `height`, `width`
+          - `label`, `title`
+          - `colors`
+          - `group`, `dimension`
+          - `on` (eventos)
+          - ...
+        </section>
+
+        <section>
+          <h2>Bars Chart</h2>
+
+          <pre><code class="hljs" data-trim>
+...
+autonomousRegionsChart = dc.rowChart("#autonomous-regions");
+
+autonomousRegionsChart
+  .dimension(autonomousRegionsDim)
+  .group(budgetPerAutonomousRegionGroup)
+  .title(function(d) {
+    return d.key + " " + accounting.formatNumber(d.value);
+  })
+  .elasticX(true)
+  .height(400)
+  .xAxis().ticks(2);
+          </code></pre>
+
+          <p><img src="images/barschart.png" /></p>
+        </section>
+
+        <section>
+          <h2>Line Chart</h2>
+
+          <pre><code class="hljs" data-trim>
+evolutionChart = dc.lineChart("#evolution");
+
+evolutionChart
+  .dimension(yearsDim)
+  .group(meanBudgetPerYearGroup)
+  .margins({top: 50, right: 50, bottom: 25, left: 90})
+  .x(d3.time.scale().domain([new Date(2010, 0, 1), new Date(2015, 0, 1)]))
+  .valueAccessor(function(d) {
+    return d.value.meanBudgetPerInhabitant;
+  })
+  .yAxisPadding(50)
+  .title(function(d) {
+    return d.key + " " + accounting.formatNumber(d.value);
+  })
+  .height(250)
+  .elasticY(true)
+  .yAxis()
+  .tickFormat(function(v){return accounting.formatNumber(v, {precision: 0}) + '€';});
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>GeoChoropleth Chart</h2>
+
+          <pre><code class="hljs" data-trim>
+mapChart = dc.geoChoroplethChart("#map");
+
+d3.json("provinces_carto.geojson", function(error, json){
+    var colors = ["#d75231", "#ec8b66", "#fcdbc8", "#eff3ff", "#a0cae0", "#4893c4", "#022977"];
+
+    mapChart
+      .height(450)
+      .colors(colors)
+      .dimension(provinceDim)
+      .group(budgetPerProvinceGroup)
+      .valueAccessor(function(d){
+        return d.value.meanBudgetPerInhabitant;
+      })
+      .overlayGeoJson(json.features, "provinces", function(p){
+        return p.properties.nombre99;
+      })
+      .on('preRender', function(chart, filter){
+      })
+      .on('preRedraw', function(chart, filter){
+      })
+      .on('renderlet', function(){
+      });
+});
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>GeoChoropleth Chart</h2>
+
+          <pre><code class="hljs" data-trim>
+.on('preRender', function(chart, filter){
+  var mapColors = d3.scale
+    .quantize()
+    .domain(d3.extent(chart.group().all().map(function(d){
+      return d.value.meanBudgetPerInhabitant;
+    })))
+    .range(colors);
+
+  chart
+    .colors(mapColors)
+    .colorCalculator(function(d){
+      return (d !== undefined) ? mapColors(d) : '#ccc';
+    });
+})
+.on('preRedraw', function(chart, filter){
+  // Same code
+})
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>GeoChoropleth Chart</h2>
+
+          <pre><code class="hljs" data-trim>
+.on('renderlet', function(){
+  if(d3.select("#map-legend svg")[0][0] !== null) {
+    var e = document.getElementById('map-legend');
+    e.innerHTML = '';
+  }
+
+  var mapColors = d3.scale
+    .quantize()
+    .domain(d3.extent(mapChart.group().all().map(function(d){
+      return d.value.meanBudgetPerInhabitant;
+    })))
+    .range(colors);
+
+  var svg = d3.select("#map-legend")
+    .append("svg")
+    .attr('width',500);
+
+  svg.append("g")
+    .attr("class", "legendLinear");
+
+  var legendLinear = d3.legend.color()
+    .shapeWidth(40)
+    .cells(mapColors.domain())
+    .orient('vertical')
+    .labelFormat(function(v){
+      return accounting.formatNumber(v, {precision: 0});
+    })
+    .scale(mapColors);
+
+  svg.select(".legendLinear")
+    .call(legendLinear);
+})
+          </code></pre>
+        </section>
+
+        <section data-markdown>
+          http://ferblape.github.io/d3mad-dashboards-with-dc.js/example1/
+        </section>
+
+        <section data-markdown>
+          ## Summary
+
+          - dc.js is a library on top of D3.js and crossfilter.js
+          - dc.js is a good choice when working with filterd and aggregated data
+          - crossfilter.js helps us to create the aggregated datasets
+          - dc.js pros:
+            - simple
+            - extensible
+            - good defaults
+          - dc.js cons:
+            - you'll have to read the code
+        </section>
+
+        <section data-markdown>
+          ## Extras
+
+          - d3.legend: http://d3-legend.susielu.com/
+          - accounting.js: http://openexchangerates.github.io/accounting.js/
         </section>
 
         <section>
@@ -337,7 +539,8 @@ yearsChart
           <br>
           <br>
           <p>
-            <a href="http://ferblape.github.io/d3mad-dashboards-with-dc.js/">http://ferblape.github.io/d3mad-dashboards-with-dc.js/</a></p>
+            <a href="http://ferblape.github.io/d3mad-dashboards-with-dc.js/">http://ferblape.github.io/d3mad-dashboards-with-dc.js/</a>
+          </p>
         </section>
       </div>
     </div>
