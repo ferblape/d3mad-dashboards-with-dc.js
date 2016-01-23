@@ -38,25 +38,19 @@ function makeGraphs(error,data){
 
   var addElement = function(p, v){
     p.count++;
-    p.totalBudget += v.budget || 0;
-    p.totalPopulation += v.population || 0;
-    p.totalBudgetPerInhabitant += v.budgetPerInhabitant || 0;
-
-    p.meanBudget = p.totalBudget / p.count;
-    p.meanBudgetPerInhabitant = p.totalBudgetPerInhabitant / p.count;
-
+    p.totalBudget += v.budget;
+    p.totalBudgetPerInhabitant += v.budgetPerInhabitant;
+    p.meanBudget = p.count != 0 ? p.totalBudget / p.count : 0;
+    p.meanBudgetPerInhabitant = p.count != 0 ? p.totalBudgetPerInhabitant / p.count : 0;
     return p;
   }
 
   var removeElement = function(p, v){
     p.count--;
-    p.totalBudget -= v.budget || 0;
-    p.totalPopulation -= v.population || 0;
-    p.totalBudgetPerInhabitant -= v.budgetPerInhabitant || 0;
-
-    p.meanBudget = p.totalBudget / p.count;
-    p.meanBudgetPerInhabitant = p.totalBudgetPerInhabitant / p.count;
-
+    p.totalBudget -= v.budget;
+    p.totalBudgetPerInhabitant -= v.budgetPerInhabitant;
+    p.meanBudget = p.count != 0 ? p.totalBudget / p.count : 0;
+    p.meanBudgetPerInhabitant = p.count != 0 ? p.totalBudgetPerInhabitant / p.count : 0;
     return p;
   }
 
@@ -64,7 +58,6 @@ function makeGraphs(error,data){
     return {
       count: 0,
       totalBudget: 0,
-      totalPopulation: 0,
       totalBudgetPerInhabitant: 0,
       meanBudget: 0,
       meanBudgetPerInhabitant: 0
@@ -208,7 +201,7 @@ function makeGraphs(error,data){
       .valueAccessor(function(d) {
         return d.value.meanBudgetPerInhabitant;
       })
-      .yAxisPadding(150)
+      .yAxisPadding(50)
       .title(function(d) {
         return d.key + " " + accounting.formatNumber(d.value);
       })
